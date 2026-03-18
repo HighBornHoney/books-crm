@@ -34,4 +34,10 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
 
+    <?= Html::a(
+        'Подписаться на этого автора',
+        ['subscription/create', 'authorId' => $model->id],
+        ['class' => 'btn btn-primary']
+    ) ?>
+
 </div>
