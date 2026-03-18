@@ -27,6 +27,13 @@ class m260317_213507_create_subscriptions_table extends Migration
             'id',
             'CASCADE'
         );
+
+        $this->createIndex(
+            'idx-unique-subscription',
+            'subscriptions',
+            ['author_id', 'phone'],
+            true
+        );
     }
 
     /**

@@ -18,6 +18,12 @@ class Subscription extends ActiveRecord
             [['author_id', 'phone'], 'required'],
             [['author_id'], 'integer'],
             [['phone'], 'string', 'max' => 20],
+            [
+                ['author_id'],
+                'unique',
+                'targetAttribute' => ['author_id', 'phone'],
+                'message' => 'Вы уже подписаны на этого автора',
+            ],
         ];
     }
 
