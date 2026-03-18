@@ -37,16 +37,16 @@ $this->params['breadcrumbs'][] = $this->title;
             //'cover',
             //'created_at',
             [
-                'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Book $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'id' => $model->id]);
-                 }
-            ],
-            [
                 'label' => 'Авторы',
                 'value' => function ($model) {
                     return implode(', ', array_map(fn($a) => $a->name, $model->authors));
                 }
+            ],
+            [
+                'class' => ActionColumn::className(),
+                'urlCreator' => function ($action, Book $model, $key, $index, $column) {
+                    return Url::toRoute([$action, 'id' => $model->id]);
+                 }
             ],
         ],
     ]); ?>
