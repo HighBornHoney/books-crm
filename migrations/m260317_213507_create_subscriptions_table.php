@@ -14,7 +14,19 @@ class m260317_213507_create_subscriptions_table extends Migration
     {
         $this->createTable('{{%subscriptions}}', [
             'id' => $this->primaryKey(),
+            'author_id' => $this->integer()->notNull(),
+            'phone' => $this->string()->notNull(),
+            'created_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP'),
         ]);
+
+        $this->addForeignKey(
+            'fk-subscriptions-author',
+            'subscriptions',
+            'author_id',
+            'authors',
+            'id',
+            'CASCADE'
+        );
     }
 
     /**
