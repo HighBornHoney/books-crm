@@ -92,7 +92,7 @@ class Book extends ActiveRecord
             foreach ($subs as $sub) {
                 $phone = urlencode($sub->phone);
                 $text = urlencode("Новая книга {$this->title} от {$sub->author->name}");
-                $apiKey = 'EMULATOR_KEY';
+                $apiKey = $_ENV['SMS_PILOT_API_KEY'];
 
                 file_get_contents("https://smspilot.ru/api.php?send=1&to={$phone}&text={$text}&apikey={$apiKey}");
             }
