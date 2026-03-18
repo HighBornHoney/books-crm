@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /** @var app\models\Book $model */
 
 $this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => 'Books', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Книги', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
@@ -16,11 +16,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+        <?= Html::a('Обновить', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => 'Вы действительно хотите удалить книгу?',
                 'method' => 'post',
             ],
         ]) ?>
@@ -30,11 +30,17 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
+            [
+                'label' => 'Обложка',
+                'format' => 'html',
+                'value' => fn($model) => $model->cover
+                    ? '<img src="' . Yii::getAlias('@web') . '/' . $model->cover . '" width="200">'
+                    : '<span style="color: grey;">Нет обложки</span>',
+            ],
             'title',
             'year',
             'description:ntext',
             'isbn',
-            'cover',
             'created_at',
         ],
     ]) ?>

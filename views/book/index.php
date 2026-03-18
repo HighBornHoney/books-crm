@@ -10,18 +10,13 @@ use yii\grid\GridView;
 /** @var app\models\BookSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Books';
+$this->title = 'Книги';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="book-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <p>
-        <?= Html::a('Create Book', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Создать книгу', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -34,22 +29,24 @@ $this->params['breadcrumbs'][] = $this->title;
             'year',
             'description:ntext',
             'isbn',
-            //'cover',
-            //'created_at',
             [
                 'label' => 'Авторы',
-                'value' => function ($model) {
-                    return implode(', ', array_map(fn($a) => $a->name, $model->authors));
-                }
+                'value' => fn($model) => implode(', ', array_map(fn($a) => $a->name, $model->authors)),
             ],
             [
-                'class' => ActionColumn::className(),
+                'label' => 'Обложка',
+                'format' => 'html',
+                'value' => fn($model) => $model->cover ?
+                    '<img src="' . $model->cover . '" width="100">'
+                    : '<span style="color: grey;">Нет обложки</span>',
+            ],
+            [
+                'class' => ActionColumn::class,
                 'urlCreator' => function ($action, Book $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
-                 }
+                }
             ],
         ],
     ]); ?>
-
 
 </div>

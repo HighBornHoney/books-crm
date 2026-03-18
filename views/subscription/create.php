@@ -12,8 +12,7 @@ $this->title = "Подписка на {$author->name}";
 
 <h1><?= Html::encode($this->title) ?></h1>
 
-<?php
-$form = ActiveForm::begin(); ?>
+<?php $form = ActiveForm::begin(); ?>
 
 <?= $form->field($model, 'phone')->textInput(['maxlength' => true])->label('Номер телефона') ?>
 
@@ -21,5 +20,4 @@ $form = ActiveForm::begin(); ?>
     <?= Html::submitButton('Подписаться', ['class' => 'btn btn-success']) ?>
 </div>
 
-<?php
-ActiveForm::end(); ?>
+<?php ActiveForm::end(); ?>
