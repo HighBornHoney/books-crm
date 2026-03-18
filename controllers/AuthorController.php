@@ -1,12 +1,12 @@
 <?php
 
-namespace app\models;
+namespace app\controllers;
 
 use app\models\Author;
 use app\models\AuthorSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * AuthorController implements the CRUD actions for Author model.
@@ -18,17 +18,21 @@ class AuthorController extends Controller
      */
     public function behaviors()
     {
-        return array_merge(
-            parent::behaviors(),
-            [
-                'verbs' => [
-                    'class' => VerbFilter::className(),
-                    'actions' => [
-                        'delete' => ['POST'],
+        return [
+            'access' => [
+                'class' => AccessControl::class,
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['index', 'view'],
+                    ],
+                    [
+                        'allow' => true,
+                        'roles' => ['@'], // только авторизованные
                     ],
                 ],
-            ]
-        );
+            ],
+        ];
     }
 
     /**
@@ -49,7 +53,7 @@ class AuthorController extends Controller
 
     /**
      * Displays a single Author model.
-     * @param int $id
+     * @param  int  $id
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -85,7 +89,7 @@ class AuthorController extends Controller
     /**
      * Updates an existing Author model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $id
+     * @param  int  $id
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -105,7 +109,7 @@ class AuthorController extends Controller
     /**
      * Deletes an existing Author model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $id
+     * @param  int  $id
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -119,7 +123,7 @@ class AuthorController extends Controller
     /**
      * Finds the Author model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param int $id
+     * @param  int  $id
      * @return Author the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */

@@ -42,6 +42,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     return Url::toRoute([$action, 'id' => $model->id]);
                  }
             ],
+            [
+                'label' => 'Авторы',
+                'value' => function ($model) {
+                    return implode(', ', array_map(fn($a) => $a->name, $model->authors));
+                }
+            ],
         ],
     ]); ?>
 
