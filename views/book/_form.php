@@ -12,7 +12,7 @@ use app\models\Author;
 
 <div class="book-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
@@ -22,7 +22,12 @@ use app\models\Author;
 
     <?= $form->field($model, 'isbn')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'cover')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'coverFile')->fileInput() ?>
+
+    <?php if ($model->cover): ?>
+        <p>Текущая обложка:</p>
+        <img alt="Обложка" src="<?= Yii::getAlias('@web') . '/' . $model->cover ?>" style="max-width:200px;">
+    <?php endif; ?>
 
     <?= $form->field($model, 'authorIds')->checkboxList(ArrayHelper::map(Author::find()->all(), 'id', 'name')) ?>
 

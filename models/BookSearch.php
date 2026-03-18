@@ -14,7 +14,7 @@ class BookSearch extends Book
     /**
      * {@inheritdoc}
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['id', 'year'], 'integer'],
