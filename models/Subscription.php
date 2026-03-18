@@ -2,16 +2,17 @@
 
 namespace app\models;
 
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 class Subscription extends ActiveRecord
 {
-    public static function tableName()
+    public static function tableName(): string
     {
         return 'subscriptions';
     }
 
-    public function rules()
+    public function rules(): array
     {
         return [
             [['author_id', 'phone'], 'required'],
@@ -20,7 +21,7 @@ class Subscription extends ActiveRecord
         ];
     }
 
-    public function getAuthor()
+    public function getAuthor(): ActiveQuery
     {
         return $this->hasOne(Author::class, ['id' => 'author_id']);
     }
