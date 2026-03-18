@@ -61,6 +61,15 @@ class Book extends ActiveRecord
                     'book_id' => $this->id,
                     'author_id' => $authorId,
                 ])->execute();
+
+                $subs = Subscription::find()->where(['author_id' => $authorId])->all();
+                foreach ($subs as $sub) {
+                    $phone = urlencode($sub->phone);
+                    $text = urlencode("Новая книга {$this->title} от {$sub->author->name}");
+                    $apiKey = 'EMULATOR_KEY';
+
+                    file_get_contents("https://smspilot.ru/api.php?send=1&to={$phone}&text={$text}&apikey={$apiKey}");
+                }
             }
         }
 
