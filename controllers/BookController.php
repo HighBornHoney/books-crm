@@ -6,7 +6,7 @@ use app\models\Book;
 use app\models\BookSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * BookController implements the CRUD actions for Book model.
@@ -18,17 +18,21 @@ class BookController extends Controller
      */
     public function behaviors()
     {
-        return array_merge(
-            parent::behaviors(),
-            [
-                'verbs' => [
-                    'class' => VerbFilter::className(),
-                    'actions' => [
-                        'delete' => ['POST'],
+        return [
+            'access' => [
+                'class' => AccessControl::class,
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['index', 'view'],
+                    ],
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
                     ],
                 ],
-            ]
-        );
+            ],
+        ];
     }
 
     /**
@@ -49,7 +53,7 @@ class BookController extends Controller
 
     /**
      * Displays a single Book model.
-     * @param int $id
+     * @param  int  $id
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -85,7 +89,7 @@ class BookController extends Controller
     /**
      * Updates an existing Book model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $id
+     * @param  int  $id
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -105,7 +109,7 @@ class BookController extends Controller
     /**
      * Deletes an existing Book model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $id
+     * @param  int  $id
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -119,7 +123,7 @@ class BookController extends Controller
     /**
      * Finds the Book model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param int $id
+     * @param  int  $id
      * @return Book the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */

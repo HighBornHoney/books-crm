@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\helpers\ArrayHelper;
+use app\models\Author;
 
 /** @var yii\web\View $this */
 /** @var app\models\Book $model */
@@ -21,6 +23,8 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'isbn')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'cover')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'authorIds')->checkboxList(ArrayHelper::map(Author::find()->all(), 'id', 'name')) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
