@@ -7,10 +7,11 @@ use yii\web\Controller;
 use app\models\Author;
 use app\models\Subscription;
 use yii\web\NotFoundHttpException;
+use yii\web\Response;
 
 class SubscriptionController extends Controller
 {
-    public function actionCreate($authorId)
+    public function actionCreate($authorId): string|Response
     {
         $author = Author::findOne($authorId);
         if (!$author) {
